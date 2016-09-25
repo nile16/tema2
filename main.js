@@ -2,7 +2,6 @@
 var http = require('http');
 var server = http.createServer(function(request, response) {});
 
-var count = 0;
 var clients = {};
 var storedMessages = [];
 
@@ -19,7 +18,6 @@ wsServer = new WebSocketServer({
 
 wsServer.on('request', function(r){
     var connection = r.accept('echo-protocol', r.origin);
-	var id = count++;
 	clients[id] = connection;
 	for(i=0;i<storedMessages.length;i++) connection.sendUTF(storedMessages[i]); // send old messages to new client
 	console.log((new Date()) + ' Connection accepted [' + id + ']');
